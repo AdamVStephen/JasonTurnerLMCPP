@@ -1,6 +1,10 @@
 #include <iostream>
 
-// Look - lots of work, for very little immediate benefit.   Thanks C++.
+// All changes on master branch to begin with - will get to grips with VS git interface in due course.
+// Episode 103 Look - lots of work, for very little immediate benefit.   Thanks C++.
+// Episode 104 : first gets rid of the whole overcomplicated mess, I will keep it for reference.
+
+// WAS hell from 103
 
 struct Base {
 	virtual void do_thing() = 0;
@@ -22,8 +26,7 @@ struct Derived : Base {
 	}
 };
 
-
-int main() {
+int main_103() {
 	
 	// Bad example
 	Base * b = new Derived();
@@ -37,4 +40,32 @@ int main() {
 	d.do_thing();
 
 	std::cout << "Hello World\n";
+}
+
+
+// Improved in 104
+
+struct Type {
+	// OK
+	//void do_thing() { return data + 4; }
+	// Better - make it const
+	int do_thing() const { return data + 4; }
+	int do_other_thing() const { return data + 6; }
+	// Best : make it constexpr
+	constexpr int ce_do_thing() const { return data + 4; }
+	constexpr int ce_do_other_thing() const { return data + 6; }
+	
+	int data{};
+};
+
+int main(int argc, char * argv[]) {
+	Type obj;
+
+	if (sizeof(long) > 4) {
+		obj.do_thing();
+	}
+	else {
+		obj.ce_do_other_thing();
+	}
+
 }
