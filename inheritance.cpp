@@ -4,10 +4,10 @@
 
 struct Base {
 	virtual void do_thing() = 0;
-	int data;
+	int data{};
 };
 
 struct Derived : Base {
-	virtual void do_thing(int i) {}
+	virtual void do_thing() override {}
 };
 
